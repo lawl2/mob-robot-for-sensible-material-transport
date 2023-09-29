@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+
+    <!-- Example link -->
+    <!-- <link name="base_link"></link> -->
+
+    <!-- to pass from gazebo_control to ros2_control-->
+    <xacro:arg name="use_ros2_control" default="true"/>
+
+
+    <!-- including robot core structure -->
+    <xacro:include filename= 'robot_core.xacro' />
+
+    <!-- need to comment the control not used -->
+
+    <!-- including robot gazebo control -->
+    <!--<xacro:include filename= 'gazebo_control.xacro' />-->
+
+    <!-- including ros2_control -->
+    <!--<xacro:include filename= 'ros2_control.xacro' />-->
+
+
+    <!-- PROBLEM 3 -->
+    <xacro:if value="$(arg use_ros2_control)">
+        <xacro:include filename="ros2_control.xacro" />
+    </xacro:if>
+
+    <xacro:unless value="$(arg use_ros2_control)">
+        <xacro:include filename="gazebo_control.xacro" />
+    </xacro:unless>
+
+    <!-- including lidar in gazebo -->
+    <xacro:include filename= 'lidar.xacro' />
+
+    <!-- need to comment the camera not used -->
+
+    <!-- including camera in gazebo -->
+    <xacro:include filename= 'camera.xacro' />
+
+    <!-- including depth camera in gazebo -->
+    <!--<xacro:include filename= 'depth_camera.xacro' />-->
+
+</robot>
